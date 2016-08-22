@@ -14,7 +14,7 @@
 		73A0BDF41D671FEE00A02E70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A0BDF21D671FEE00A02E70 /* LaunchScreen.storyboard */; };
 		73A0BDFE1D67205B00A02E70 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A0BDFB1D67205B00A02E70 /* CustomView.swift */; };
 		73A0BDFF1D67205B00A02E70 /* CustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73A0BDFC1D67205B00A02E70 /* CustomView.xib */; };
-		73A0BE001D67205B00A02E70 /* DYLCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A0BDFD1D67205B00A02E70 /* DYLCarousel.swift */; };
+		73F40BB91D6AE24D002CE091 /* DYLCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F40BB81D6AE24D002CE091 /* DYLCarousel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		73A0BDF51D671FEE00A02E70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73A0BDFB1D67205B00A02E70 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		73A0BDFC1D67205B00A02E70 /* CustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomView.xib; sourceTree = "<group>"; };
-		73A0BDFD1D67205B00A02E70 /* DYLCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DYLCarousel.swift; sourceTree = "<group>"; };
+		73F40BB81D6AE24D002CE091 /* DYLCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DYLCarousel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +60,9 @@
 		73A0BDE81D671FEE00A02E70 /* DYLCarousel */ = {
 			isa = PBXGroup;
 			children = (
+				73F40BB71D6AE24C002CE091 /* class */,
 				73A0BDFB1D67205B00A02E70 /* CustomView.swift */,
 				73A0BDFC1D67205B00A02E70 /* CustomView.xib */,
-				73A0BDFD1D67205B00A02E70 /* DYLCarousel.swift */,
 				73A0BDE91D671FEE00A02E70 /* AppDelegate.swift */,
 				73A0BDEB1D671FEE00A02E70 /* ViewController.swift */,
 				73A0BDED1D671FEE00A02E70 /* Main.storyboard */,
@@ -71,6 +71,14 @@
 				73A0BDF51D671FEE00A02E70 /* Info.plist */,
 			);
 			path = DYLCarousel;
+			sourceTree = "<group>";
+		};
+		73F40BB71D6AE24C002CE091 /* class */ = {
+			isa = PBXGroup;
+			children = (
+				73F40BB81D6AE24D002CE091 /* DYLCarousel.swift */,
+			);
+			path = class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,7 +156,7 @@
 				73A0BDFE1D67205B00A02E70 /* CustomView.swift in Sources */,
 				73A0BDEC1D671FEE00A02E70 /* ViewController.swift in Sources */,
 				73A0BDEA1D671FEE00A02E70 /* AppDelegate.swift in Sources */,
-				73A0BE001D67205B00A02E70 /* DYLCarousel.swift in Sources */,
+				73F40BB91D6AE24D002CE091 /* DYLCarousel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +306,7 @@
 				73A0BDFA1D671FEE00A02E70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -43,6 +43,10 @@ extension ViewController: DYLCarouselDatasource {
 
 extension ViewController: DYLCarouselDelegate {
     func didMoveToItemAtIndex(index: Int) {
-        print("\(index)")
+        print("move: \(index)")
+    }
+    
+    func didTapItemAtIndex(carouselView: DYLCarousel, index: Int) {
+        print("tapped: \(index)")
     }
 }

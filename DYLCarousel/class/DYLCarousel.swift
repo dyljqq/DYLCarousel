@@ -47,6 +47,7 @@ public class DYLCarousel: UIView {
             }
             updatePageControl(selectedIndex)
             // TODO move to index
+            self.delegate?.didMoveToItemAtIndex(selectedIndex)
         }
     }
     
@@ -61,6 +62,8 @@ public class DYLCarousel: UIView {
     private var currentGestureVelocity: CGFloat = 0.0
     private var startGesturePoint: CGPoint = CGPointZero
     private var endGesturePoint: CGPoint = CGPointZero
+    private var currentItem: DYLCarouselItem?
+    private var currentFoundItem: DYLCarouselItem?
     
     
     var displacement: Double {
@@ -152,8 +155,6 @@ extension DYLCarousel {
         }
         item.center = CGPointMake(upperView.center.x, upperView.center.y + (upperView.frame.size.height - itemHeight!) / 2)
         dispatch_async(dispatch_get_main_queue()){
-            
-            // I think it is not good way, for me, I will use addLaler
             self.upperView.layer.addSublayer(item.layer)
             self.carouselItems.append(item)
             self.refreshItemsPosition(animated: true)
@@ -207,7 +208,7 @@ extension DYLCarousel {
             currentGestureVelocity = panGesture.velocityInView(panGesture.view).x
             endGesturePoint = panGesture.locationInView(panGesture.view)
             
-            //            let xOffset = (startGesturePoint.x - endGesturePoint.x ) * (1/parallaxFactor)
+            // let xOffset = (startGesturePoint.x - endGesturePoint.x ) * (1/parallaxFactor)
             let xOffset = (startGesturePoint.x - endGesturePoint.x ) / CGFloat(parallaxFactor)
             
             move(Double(xOffset))
@@ -221,7 +222,23 @@ extension DYLCarousel {
     }
     
     func detectTap(tapGesture: UITapGestureRecognizer) {
-        // TODO
+        let targetPoint = tapGesture.locationInView(tapGesture.view)
+        let layer = upperView.layer.hitTest(targetPoint)
+        guard let targetItem = findItem(layer!) else {
+            return
+        }
+        let firstItemOffset = carouselItems[0].xDisplay - targetItem.xDisplay
+        let tappedIndex = -Int(round(firstItemOffset/displacement))
+        if targetItem.xDisplay == 0 {
+            guard let function = self.delegate?.didTapItemAtIndex else {
+                return
+            }
+            function(self, index: tappedIndex)
+        } else {
+            let offset = displacement * Double(tappedIndex - selectedIndex)
+            selectedIndex = tappedIndex
+            move(offset)
+        }
     }
     
 }
@@ -250,10 +267,10 @@ extension DYLCarousel {
     }
     
     func xFactor(x: Double)-> Double {
-        // formula f(x) = kx + b
+        // formula: f(x) = kx + b
         let k = (1 - parallaxFactor) / (displacement - displacement / 2)
-        let b = displacement - k
-        let y = k * x + b
+        let b = 1 - k * displacement
+        let y = k * fabs(x) + b
         switch fabs(x) {
         case 0..<(displacement/2):
             return parallaxFactor
@@ -278,10 +295,33 @@ extension DYLCarousel {
     
     
     func decelerationDistance()-> CGFloat {
-        let acceleration = -currentGestureVelocity * 25;
-        
-        if acceleration == 0 { return 0 }
-        else { return -pow(currentGestureVelocity, 2.0) / (2.0 * acceleration); }
+        let acceleration = -currentGestureVelocity * 25
+        if acceleration == 0 {
+            return 0
+        }else {
+            return -pow(currentGestureVelocity, 2.0) / (2.0 * acceleration)
+        }
+    }
+    
+    func findItem(layer: CALayer)-> DYLCarouselItem? {
+        currentFoundItem = nil
+        for item in carouselItems {
+            currentItem = item
+            checkInSubView(item, layer: layer)
+        }
+        return currentFoundItem
+    }
+    
+    // recursion
+    func checkInSubView(view: UIView, layer: CALayer) {
+        let subviews = view.subviews
+        for subview in subviews {
+            if subview.layer.isEqual(layer) {
+                currentFoundItem = currentItem
+                return
+            }
+            checkInSubView(subview, layer: layer)
+        }
     }
     
 }
